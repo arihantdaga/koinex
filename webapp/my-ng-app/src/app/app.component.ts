@@ -51,7 +51,6 @@ export class AppComponent {
     this.bindCurrency("ripple");
 
     this.notificationGap = 15000 // 10*60*1000;      // 10 Minitues
-
   }
   initPusher(){
     this.pusherClient = new Pusher(this.config.pusher_key,{
