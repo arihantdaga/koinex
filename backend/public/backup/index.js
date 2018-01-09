@@ -1,3 +1,4 @@
+
 class Koinex {
     constructor(){
         this.config = {
@@ -21,8 +22,7 @@ class Koinex {
     initPusher(){
         window.pusherClient = new Pusher(this.config.pusher_key,{
             cluster: "ap2"
-        });
-        
+        });  
     }
     subscribePusher(topic){
         return pusherClient.subscribe(topic);
@@ -81,20 +81,32 @@ class Koinex {
             console.log(error);
           });   
     }
-    fetchLimits(){
-        axios.get("/limits")
+    fetchLimits(currency){
+        /*
+        axios.get(`/limits?currency=${currency}`)
         .then(data=>{
             this.limits = data && data.data ? {...data.data} : null;
         }).catch(err=>{
             console.log(err);
         })
+        */
+        // For now we are using angular for all this part.
+        
+    }
+    refreshLimits(){
+        let currency = "ripple";
+        fetchLimits(currency);
     }
 
-
     initGame(){
+        let currency = "ripple";
         this.initPusher();
-        this.fetchLimits();
-        this.bindCurrency("ripple");
+        this.fetchLimits("ripple");
+        this.bindCurrency(currency);
+        setTimeout(()=>{
+            refreshLimits();
+        }, 30000); 
+        
     }
 }
 
